@@ -1,8 +1,12 @@
-// Identifiants valides
+// ===============================
+// IDENTIFIANTS VALIDES
+// ===============================
 const validUsername = "w.moha";
 const validPassword = "MOHA_ahmed77";
 
-// Éléments du DOM
+// ===============================
+// ÉLÉMENTS DU DOM
+// ===============================
 const loginButton = document.getElementById("login-button");
 const usernameInput = document.getElementById("username");
 const passwordInput = document.getElementById("password");
@@ -10,7 +14,13 @@ const errorMessage = document.getElementById("error-message");
 const loginContainer = document.getElementById("login-container");
 const content = document.getElementById("content");
 
-// Gestion du clic sur le bouton de connexion
+const menuToggle = document.getElementById("menu-toggle");
+const sidebar = document.querySelector(".sidebar");
+const menuLinks = document.querySelectorAll(".menu a");
+
+// ===============================
+// CONNEXION
+// ===============================
 loginButton.addEventListener("click", () => {
     const username = usernameInput.value.trim();
     const password = passwordInput.value;
@@ -18,6 +28,9 @@ loginButton.addEventListener("click", () => {
     if (username === validUsername && password === validPassword) {
         loginContainer.style.display = "none";
         content.style.display = "block";
+
+        cacherToutesLesSections();
+        document.getElementById("mon-compte-section").style.display = "block";
     } else {
         errorMessage.style.display = "block";
         setTimeout(() => {
@@ -26,68 +39,9 @@ loginButton.addEventListener("click", () => {
     }
 });
 
-// Gestion des menus et affichage des sections
-document.getElementById("mon-compte-button").addEventListener("click", function() {
-    // Cacher toutes les autres sections
-    document.getElementById("notes-annee-en-cours").style.display = "none";
-    document.getElementById("absence-section").style.display = "none";
-    // Afficher la section Mon Compte
-    document.getElementById("mon-compte-section").style.display = "block";
-});
-
-document.getElementById("absence-button").addEventListener("click", function() {
-    document.getElementById("mon-compte-section").style.display = "none";
-    document.getElementById("notes-annee-en-cours").style.display = "none";
-    document.getElementById("absence-section").style.display = "block";
-});
-document.getElementById("edt-button").addEventListener("click", function() {
-    document.getElementById("mon-compte-section").style.display = "none";
-    document.getElementById("notes-annee-en-cours").style.display = "none";
-    document.getElementById("absence-section").style.display = "none";
-    document.getElementById("edt-section").style.display = "block";
-});
-
-document.getElementById("resultats-button").addEventListener("click", function() {
-    document.getElementById("mon-compte-section").style.display = "none";
-    document.getElementById("absence-section").style.display = "none";
-    document.getElementById("notes-annee-en-cours").style.display = "block";
-});
-
-// Gestion du bouton de déconnexion
-document.getElementById("logout-button").addEventListener("click", function() {
-    alert("Vous avez été déconnecté.");
-    location.reload();
-});
-// Sélection des éléments
-const menuToggle = document.getElementById("menu-toggle");
-const sidebar = document.querySelector(".sidebar");
-const menuLinks = document.querySelectorAll(".menu a");
-
-// Toggle menu (ouverture/fermeture)
-menuToggle.addEventListener("click", () => {
-    sidebar.classList.toggle("active");
-});
-
-// Quand on clique sur un lien → fermer le menu
-menuLinks.forEach(link => {
-    link.addEventListener("click", () => {
-        sidebar.classList.remove("active");
-    });
-});
-
-
-document.getElementById("bulletins-button").addEventListener("click", function(e) {
-    e.preventDefault();
-
-    // Cacher toutes les autres sections
-    document.getElementById("mon-compte-section").style.display = "none";
-    document.getElementById("notes-annee-en-cours").style.display = "none";
-    document.getElementById("absence-section").style.display = "none";
-    document.getElementById("edt-section").style.display = "none";
-
-    // Afficher la section Bulletins
-    document.getElementById("bulletins-section").style.display = "block";
-});
+// ===============================
+// FONCTION UTILITAIRE
+// ===============================
 function cacherToutesLesSections() {
     const sections = [
         "mon-compte-section",
@@ -103,3 +57,68 @@ function cacherToutesLesSections() {
         if (el) el.style.display = "none";
     });
 }
+
+// ===============================
+// NAVIGATION MENU
+// ===============================
+
+// Mon compte
+document.getElementById("mon-compte-button").addEventListener("click", () => {
+    cacherToutesLesSections();
+    document.getElementById("mon-compte-section").style.display = "block";
+});
+
+// Notes année en cours
+document.querySelector('a[href="#notes-annee-en-cours"]').addEventListener("click", (e) => {
+    e.preventDefault();
+    cacherToutesLesSections();
+    document.getElementById("notes-annee-en-cours").style.display = "block";
+});
+
+// Notes années précédentes
+document.querySelector('a[href="#notes-annees-precedentes"]').addEventListener("click", (e) => {
+    e.preventDefault();
+    cacherToutesLesSections();
+    document.getElementById("notes-annees-precedentes").style.display = "block";
+});
+
+// Absences
+document.getElementById("absence-button").addEventListener("click", () => {
+    cacherToutesLesSections();
+    document.getElementById("absence-section").style.display = "block";
+});
+
+// Emploi du temps
+document.getElementById("edt-button").addEventListener("click", () => {
+    cacherToutesLesSections();
+    document.getElementById("edt-section").style.display = "block";
+});
+
+// Bulletins
+document.getElementById("bulletins-button").addEventListener("click", (e) => {
+    e.preventDefault();
+    cacherToutesLesSections();
+    document.getElementById("bulletins-section").style.display = "block";
+});
+
+// ===============================
+// DÉCONNEXION
+// ===============================
+document.getElementById("logout-button").addEventListener("click", () => {
+    alert("Vous avez été déconnecté.");
+    location.reload();
+});
+
+// ===============================
+// MENU HAMBURGER (MOBILE)
+// ===============================
+menuToggle.addEventListener("click", () => {
+    sidebar.classList.toggle("active");
+});
+
+menuLinks.forEach(link => {
+    link.addEventListener("click", () => {
+        sidebar.classList.remove("active");
+    });
+});
+

@@ -75,6 +75,21 @@ menuLinks.forEach(link => {
     });
 });
 
+function cacherToutesLesSections() {
+    const sections = [
+        "mon-compte-section",
+        "notes-annee-en-cours",
+        "notes-annees-precedentes",
+        "absence-section",
+        "edt-section",
+        "bulletins-section"
+    ];
+
+    sections.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.style.display = "none";
+    });
+}
 document.getElementById("bulletins-button").addEventListener("click", function(e) {
     e.preventDefault();
 

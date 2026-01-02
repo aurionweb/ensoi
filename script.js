@@ -75,6 +75,19 @@ menuLinks.forEach(link => {
     });
 });
 
+
+document.getElementById("bulletins-button").addEventListener("click", function(e) {
+    e.preventDefault();
+
+    // Cacher toutes les autres sections
+    document.getElementById("mon-compte-section").style.display = "none";
+    document.getElementById("notes-annee-en-cours").style.display = "none";
+    document.getElementById("absence-section").style.display = "none";
+    document.getElementById("edt-section").style.display = "none";
+
+    // Afficher la section Bulletins
+    document.getElementById("bulletins-section").style.display = "block";
+});
 function cacherToutesLesSections() {
     const sections = [
         "mon-compte-section",
@@ -90,16 +103,3 @@ function cacherToutesLesSections() {
         if (el) el.style.display = "none";
     });
 }
-document.getElementById("bulletins-button").addEventListener("click", function(e) {
-    e.preventDefault();
-
-    // Cacher toutes les autres sections
-    document.getElementById("mon-compte-section").style.display = "none";
-    document.getElementById("notes-annee-en-cours").style.display = "none";
-    document.getElementById("absence-section").style.display = "none";
-    document.getElementById("edt-section").style.display = "none";
-
-    // Afficher la section Bulletins
-    document.getElementById("bulletins-section").style.display = "block";
-});
-
